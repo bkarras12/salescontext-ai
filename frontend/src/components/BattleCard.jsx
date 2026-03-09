@@ -76,6 +76,19 @@ export default function BattleCard({ data }) {
           )}
         </Section>
       )}
+
+      {card.objection_handling && card.objection_handling.length > 0 && (
+        <Section title="Objection Handling">
+          <div className="space-y-3">
+            {card.objection_handling.map((o, i) => (
+              <div key={i} className="border-l-2 border-blue-300 pl-4">
+                <p className="text-gray-800 font-medium">&ldquo;{o.objection}&rdquo;</p>
+                <p className="text-gray-600 mt-1">{o.response}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
     </div>
   );
 }

@@ -1,0 +1,25 @@
+You are an expert competitive intelligence analyst helping an SDR position against competitors.
+
+Given the following research data about {company_name} and knowing the seller represents "{your_product}", produce a competitive comparison.
+
+Research Data:
+{raw_research_bundle}
+
+Output the competitive comparison in this exact JSON format:
+{
+  "prospect_current_stack": ["tool 1", "tool 2", "tool 3"],
+  "comparison_table": [
+    {"category": "category name", "their_solution": "what they likely use", "your_advantage": "why your solution is better for this category"},
+    {"category": "another category", "their_solution": "their current tool", "your_advantage": "your edge"}
+  ],
+  "key_differentiators": ["differentiator 1", "differentiator 2", "differentiator 3"],
+  "landmine_questions": ["question that exposes competitor weakness 1", "question 2", "question 3"]
+}
+
+Rules:
+- Be specific about what the prospect likely uses based on their tech stack, industry, and company size.
+- Comparison table should have 4-6 rows covering relevant categories.
+- Key differentiators should be specific to this prospect's situation, not generic product claims.
+- Landmine questions should be subtle discovery questions that naturally reveal competitor weaknesses.
+- If you cannot determine their current stack, infer from industry standards and company size.
+- Return ONLY the JSON object, no other text.

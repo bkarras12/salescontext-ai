@@ -16,12 +16,17 @@ Output the battle card in this exact JSON format:
   "opening_lines": {
     "cold_email": ["line 1", "line 2", "line 3"],
     "cold_call": ["line 1", "line 2"]
-  }
+  },
+  "objection_handling": [
+    {"objection": "common objection the prospect might raise", "response": "specific rebuttal using company context"},
+    {"objection": "another objection", "response": "another rebuttal"}
+  ]
 }
 
 Rules:
 - Be specific. Use the company name, their actual product, their actual news.
 - Do not use filler phrases like "cutting-edge" or "innovative."
 - Opening lines must reference something real about the company — not generic templates.
+- Objection handling should include 3-5 objections specific to this company's situation, industry, and likely concerns.
 - If data is missing for a field, return an empty array or "Insufficient data."
 - Return ONLY the JSON object, no other text.
