@@ -26,7 +26,7 @@ async def research_company(company_name: str, domain: str) -> str:
 Return ALL findings as a detailed research report. Include specific facts, numbers, and names. If you cannot find information for a category, say so explicitly."""
 
     response = await client.responses.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         tools=[{"type": "web_search_preview"}],
         input=prompt,
     )
