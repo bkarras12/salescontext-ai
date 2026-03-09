@@ -1,6 +1,7 @@
+import os
 import time
 
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from models.schemas import ResearchRequest, ResearchResponse, BattleCard, OpeningLines
@@ -18,13 +19,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+router = APIRouter()
 
-@app.get("/health")
+
+@router.get("/health")
 async def health():
     return {"status": "ok"}
 
 
-@app.post("/research", response_model=ResearchResponse)
+@router.post("/research", response_model=ResearchResponse)
 async def research(req: ResearchRequest):
     start = time.time()
 
@@ -69,3 +72,8 @@ async def research(req: ResearchRequest):
         battle_card=battle_card,
         generation_time_seconds=round(time.time() - start, 1),
     )
+
+
+# On Vercel, requests arrive at /api/research; locally, at /research
+prefix = "/api" if os.environ.get("VERCEL") else ""
+app.include_router(router, prefix=prefix)
