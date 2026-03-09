@@ -10,7 +10,7 @@ SalesContext AI is a web app that generates structured SDR battle cards from a c
 
 - **Frontend:** React + Tailwind CSS (hosted on Vercel)
 - **Backend:** Python + FastAPI (hosted on Railway/Render)
-- **LLM:** Anthropic Claude API (claude-sonnet-4-5) with built-in web search tool
+- **LLM:** OpenAI API (gpt-4o) with web search preview tool
 - **Database:** SQLite (dev) → PostgreSQL (prod)
 - **Auth:** Clerk | **Payments:** Stripe | **PDF:** WeasyPrint or jsPDF
 
@@ -35,8 +35,8 @@ npm run build                          # production build
 Four-agent pipeline, all orchestrated by a single FastAPI `/research` POST endpoint:
 
 1. **Input Handler** (`backend/agents/input_handler.py`) — normalizes domain, validates input
-2. **Research Orchestrator** (`backend/agents/research_orchestrator.py`) — Claude web search, BuiltWith API, Crunchbase/news
-3. **Battle Card Generator** (`backend/agents/battle_card_generator.py`) — Claude API call with prompt from `backend/prompts/battle_card_prompt.txt`
+2. **Research Orchestrator** (`backend/agents/research_orchestrator.py`) — OpenAI web search, BuiltWith API, Crunchbase/news
+3. **Battle Card Generator** (`backend/agents/battle_card_generator.py`) — OpenAI API call with prompt from `backend/prompts/battle_card_prompt.txt`
 4. **Renderer** — FastAPI returns JSON; React renders tabbed UI with copy/PDF export
 
 ## Key Design Decisions
@@ -50,9 +50,8 @@ Four-agent pipeline, all orchestrated by a single FastAPI `/research` POST endpo
 ## Environment Variables
 
 ```
-ANTHROPIC_API_KEY       # Required for all phases
+OPENAI_API_KEY          # Required for all phases
 BUILTWITH_API_KEY       # Tech stack signals
-SERPAPI_KEY             # Optional — Claude web search used by default
 DATABASE_URL            # Phase 2+ (PostgreSQL)
 STRIPE_SECRET_KEY       # Phase 3
 STRIPE_WEBHOOK_SECRET   # Phase 3

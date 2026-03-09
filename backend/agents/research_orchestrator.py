@@ -1,11 +1,11 @@
-import anthropic
-from config import ANTHROPIC_API_KEY
+from openai import AsyncOpenAI
+from config import OPENAI_API_KEY
 
-client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 
 async def research_company(company_name: str, domain: str) -> str:
-    """Use Claude with web search to gather raw research about a company."""
+    """Use OpenAI with web search to gather raw research about a company."""
     query_parts = []
     if company_name:
         query_parts.append(company_name)
@@ -25,16 +25,17 @@ async def research_company(company_name: str, domain: str) -> str:
 
 Return ALL findings as a detailed research report. Include specific facts, numbers, and names. If you cannot find information for a category, say so explicitly."""
 
-    response = await client.messages.create(
-        model="claude-sonnet-4-5-20250514",
-        max_tokens=4096,
-        tools=[{"type": "web_search_20250305"}],
-        messages=[{"role": "user", "content": prompt}],
+    response = await client.responses.create(
+        model="gpt-4o",
+        tools=[{"type": "web_search_preview"}],
+        input=prompt,
     )
 
-    # Extract all text blocks from the response
+    # Extract text from output items
     text_parts = []
-    for block in response.content:
-        if hasattr(block, "text"):
-            text_parts.append(block.text)
+    for item in response.output:
+        if item.type == "message":
+            for content in item.content:
+                if content.type == "output_text":
+                    text_parts.append(content.text)
     return "\n".join(text_parts)
