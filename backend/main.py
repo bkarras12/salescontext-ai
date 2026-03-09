@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 
@@ -15,6 +16,8 @@ from agents.research_cache import store_research, get_research
 from agents.battle_card_generator import generate_battle_card
 from agents.meeting_prep_generator import generate_meeting_prep
 from agents.competitive_generator import generate_competitive
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="SalesContext AI")
 
@@ -51,9 +54,29 @@ async def _get_or_run_research(
 
     cn = normalized["company_name"]
     d = normalized["domain"]
-    raw = await research_company(cn, d)
+
+    try:
+        raw = await research_company(cn, d)
+    except Exception as e:
+        logger.exception("Research orchestrator failed")
+        raise HTTPException(
+            status_code=502,
+            detail=f"Failed to research company: {e}",
+        )
+
     rid = store_research(cn, d, raw)
     return get_research(research_id=rid)
+
+
+def _safe_build_list(model_cls, items):
+    """Safely build a list of pydantic models, skipping malformed entries."""
+    result = []
+    for item in items:
+        try:
+            result.append(model_cls(**item) if isinstance(item, dict) else item)
+        except Exception:
+            continue
+    return result
 
 
 @router.get("/health")
@@ -69,16 +92,18 @@ async def research(req: ResearchRequest):
     company_name = entry["company_name"]
     domain = entry["domain"]
 
-    card_data = generate_battle_card(
-        company_name=company_name or domain,
-        domain=domain,
-        raw_research=entry["raw_research"],
-    )
-
-    objections = [
-        ObjectionResponse(**o)
-        for o in card_data.get("objection_handling", [])
-    ]
+    try:
+        card_data = generate_battle_card(
+            company_name=company_name or domain,
+            domain=domain,
+            raw_research=entry["raw_research"],
+        )
+    except Exception as e:
+        logger.exception("Battle card generation failed")
+        raise HTTPException(
+            status_code=502,
+            detail=f"Failed to generate battle card: {e}",
+        )
 
     battle_card = BattleCard(
         company_overview=card_data.get("company_overview", ""),
@@ -91,7 +116,9 @@ async def research(req: ResearchRequest):
             cold_email=card_data.get("opening_lines", {}).get("cold_email", []),
             cold_call=card_data.get("opening_lines", {}).get("cold_call", []),
         ),
-        objection_handling=objections,
+        objection_handling=_safe_build_list(
+            ObjectionResponse, card_data.get("objection_handling", [])
+        ),
     )
 
     return ResearchResponse(
@@ -111,18 +138,27 @@ async def meeting_prep(req: MeetingPrepRequest):
     company_name = entry["company_name"]
     domain = entry["domain"]
 
-    data = generate_meeting_prep(
-        company_name=company_name or domain,
-        domain=domain,
-        raw_research=entry["raw_research"],
-    )
+    try:
+        data = generate_meeting_prep(
+            company_name=company_name or domain,
+            domain=domain,
+            raw_research=entry["raw_research"],
+        )
+    except Exception as e:
+        logger.exception("Meeting prep generation failed")
+        raise HTTPException(
+            status_code=502,
+            detail=f"Failed to generate meeting prep: {e}",
+        )
 
     brief = MeetingPrepBrief(
         executive_summary=data.get("executive_summary", ""),
-        meeting_agenda=[AgendaItem(**a) for a in data.get("meeting_agenda", [])],
+        meeting_agenda=_safe_build_list(AgendaItem, data.get("meeting_agenda", [])),
         talking_points=data.get("talking_points", []),
         questions_to_ask=data.get("questions_to_ask", []),
-        objection_responses=[ObjectionResponse(**o) for o in data.get("objection_responses", [])],
+        objection_responses=_safe_build_list(
+            ObjectionResponse, data.get("objection_responses", [])
+        ),
         competitive_landscape=data.get("competitive_landscape", ""),
     )
 
@@ -143,16 +179,25 @@ async def competitive(req: CompetitiveRequest):
     company_name = entry["company_name"]
     domain = entry["domain"]
 
-    data = generate_competitive(
-        company_name=company_name or domain,
-        domain=domain,
-        raw_research=entry["raw_research"],
-        your_product=req.your_product,
-    )
+    try:
+        data = generate_competitive(
+            company_name=company_name or domain,
+            domain=domain,
+            raw_research=entry["raw_research"],
+            your_product=req.your_product,
+        )
+    except Exception as e:
+        logger.exception("Competitive comparison generation failed")
+        raise HTTPException(
+            status_code=502,
+            detail=f"Failed to generate competitive comparison: {e}",
+        )
 
     comp = CompetitiveComparison(
         prospect_current_stack=data.get("prospect_current_stack", []),
-        comparison_table=[ComparisonRow(**r) for r in data.get("comparison_table", [])],
+        comparison_table=_safe_build_list(
+            ComparisonRow, data.get("comparison_table", [])
+        ),
         key_differentiators=data.get("key_differentiators", []),
         landmine_questions=data.get("landmine_questions", []),
     )

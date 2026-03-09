@@ -8,8 +8,11 @@ async function post(endpoint, body) {
   });
 
   if (!response.ok) {
+    if (response.status === 504) {
+      throw new Error("Request timed out — the research step took too long. Try again or use a company domain for better results.");
+    }
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.detail || "Request failed");
+    throw new Error(error.detail || `Request failed (${response.status})`);
   }
 
   return response.json();
