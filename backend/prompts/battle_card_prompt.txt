@@ -4,6 +4,7 @@ Given the following research data about {company_name}, produce a comprehensive,
 
 Research Data:
 {raw_research_bundle}
+{personalization}
 
 Output the battle card in this exact JSON format:
 {

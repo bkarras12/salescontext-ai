@@ -4,6 +4,7 @@ Given the following research data about {company_name} and knowing the seller re
 
 Research Data:
 {raw_research_bundle}
+{personalization}
 
 Output the competitive comparison in this exact JSON format:
 {

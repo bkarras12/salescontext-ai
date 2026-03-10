@@ -97,6 +97,8 @@ async def research(req: ResearchRequest):
             company_name=company_name or domain,
             domain=domain,
             raw_research=entry["raw_research"],
+            your_product=req.your_product,
+            your_location=req.your_location,
         )
     except Exception as e:
         logger.exception("Battle card generation failed")
@@ -148,6 +150,8 @@ async def meeting_prep(req: MeetingPrepRequest):
             company_name=company_name or domain,
             domain=domain,
             raw_research=entry["raw_research"],
+            your_product=req.your_product,
+            your_location=req.your_location,
         )
     except Exception as e:
         logger.exception("Meeting prep generation failed")
@@ -193,6 +197,7 @@ async def competitive(req: CompetitiveRequest):
             domain=domain,
             raw_research=entry["raw_research"],
             your_product=req.your_product,
+            your_location=req.your_location,
         )
     except Exception as e:
         logger.exception("Competitive comparison generation failed")

@@ -21,20 +21,25 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [yourProduct, setYourProduct] = useState("");
+  const [yourLocation, setYourLocation] = useState("");
   const contentRef = useRef(null);
 
-  const handleSearch = async (input) => {
+  const handleSearch = async (input, product, location) => {
     setLoading(true);
     setError(null);
     setResults({});
     setResearchId(null);
     setActiveTab("battlecard");
+    setYourProduct(product);
+    setYourLocation(location);
 
     try {
       const isDomain = input.includes(".");
       const data = await researchCompany(
         isDomain ? "" : input,
-        isDomain ? input : ""
+        isDomain ? input : "",
+        product || undefined,
+        location || undefined
       );
       setResults({ battlecard: data });
       setResearchId(data.research_id);
@@ -50,7 +55,7 @@ export default function App() {
 
     if (results[tabId]) return;
 
-    if (tabId === "competitive" && !yourProduct.trim()) return;
+    if (tabId === "competitive" && !yourProduct) return;
 
     setLoading(true);
     setError(null);
@@ -58,26 +63,11 @@ export default function App() {
     try {
       let data;
       if (tabId === "meetingprep") {
-        data = await generateMeetingPrep(researchId);
+        data = await generateMeetingPrep(researchId, yourProduct || undefined, yourLocation || undefined);
       } else if (tabId === "competitive") {
-        data = await generateCompetitive(researchId, yourProduct.trim());
+        data = await generateCompetitive(researchId, yourProduct, yourLocation || undefined);
       }
       setResults((prev) => ({ ...prev, [tabId]: data }));
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGenerateCompetitive = async () => {
-    if (!yourProduct.trim()) return;
-    setLoading(true);
-    setError(null);
-
-    try {
-      const data = await generateCompetitive(researchId, yourProduct.trim());
-      setResults((prev) => ({ ...prev, competitive: data }));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -141,25 +131,9 @@ export default function App() {
             <MeetingPrep data={results.meetingprep} />
           )}
 
-          {!loading && activeTab === "competitive" && !results.competitive && researchId && (
-            <div className="w-full max-w-3xl mx-auto mt-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
-              <h3 className="text-lg font-semibold text-white mb-4">What are you selling?</h3>
-              <div className="flex gap-3">
-                <input
-                  type="text"
-                  value={yourProduct}
-                  onChange={(e) => setYourProduct(e.target.value)}
-                  placeholder="Your product or company name"
-                  className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
-                />
-                <button
-                  onClick={handleGenerateCompetitive}
-                  disabled={!yourProduct.trim() || loading}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/20"
-                >
-                  Generate
-                </button>
-              </div>
+          {!loading && activeTab === "competitive" && !results.competitive && researchId && !yourProduct && (
+            <div className="w-full max-w-3xl mx-auto mt-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8 text-center">
+              <p className="text-slate-400">Enter what you sell in the search form above to generate a competitive comparison.</p>
             </div>
           )}
 

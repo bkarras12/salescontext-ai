@@ -4,12 +4,16 @@ from pydantic import BaseModel
 class ResearchRequest(BaseModel):
     company_name: str | None = None
     domain: str | None = None
+    your_product: str | None = None
+    your_location: str | None = None
 
 
 class MeetingPrepRequest(BaseModel):
     research_id: str | None = None
     company_name: str | None = None
     domain: str | None = None
+    your_product: str | None = None
+    your_location: str | None = None
 
 
 class CompetitiveRequest(BaseModel):
@@ -17,6 +21,7 @@ class CompetitiveRequest(BaseModel):
     company_name: str | None = None
     domain: str | None = None
     your_product: str
+    your_location: str | None = None
 
 
 class OpeningLines(BaseModel):

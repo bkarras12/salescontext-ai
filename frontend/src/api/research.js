@@ -18,20 +18,27 @@ async function post(endpoint, body) {
   return response.json();
 }
 
-export async function researchCompany(companyName, domain) {
+export async function researchCompany(companyName, domain, yourProduct, yourLocation) {
   return post("/research", {
     company_name: companyName || undefined,
     domain: domain || undefined,
+    your_product: yourProduct || undefined,
+    your_location: yourLocation || undefined,
   });
 }
 
-export async function generateMeetingPrep(researchId) {
-  return post("/meeting-prep", { research_id: researchId });
+export async function generateMeetingPrep(researchId, yourProduct, yourLocation) {
+  return post("/meeting-prep", {
+    research_id: researchId,
+    your_product: yourProduct || undefined,
+    your_location: yourLocation || undefined,
+  });
 }
 
-export async function generateCompetitive(researchId, yourProduct) {
+export async function generateCompetitive(researchId, yourProduct, yourLocation) {
   return post("/competitive", {
     research_id: researchId,
     your_product: yourProduct,
+    your_location: yourLocation || undefined,
   });
 }
