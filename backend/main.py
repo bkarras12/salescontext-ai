@@ -108,17 +108,22 @@ async def research(req: ResearchRequest):
     battle_card = BattleCard(
         company_overview=card_data.get("company_overview", ""),
         recent_news=card_data.get("recent_news", []),
+        industry_trends=card_data.get("industry_trends", []),
         likely_pain_points=card_data.get("likely_pain_points", []),
         decision_maker_titles=card_data.get("decision_maker_titles", []),
+        buying_signals=card_data.get("buying_signals", []),
         tech_stack_signals=card_data.get("tech_stack_signals", []),
         competitor_context=card_data.get("competitor_context", ""),
         opening_lines=OpeningLines(
             cold_email=card_data.get("opening_lines", {}).get("cold_email", []),
             cold_call=card_data.get("opening_lines", {}).get("cold_call", []),
+            linkedin=card_data.get("opening_lines", {}).get("linkedin", []),
         ),
         objection_handling=_safe_build_list(
             ObjectionResponse, card_data.get("objection_handling", [])
         ),
+        value_proposition=card_data.get("value_proposition", ""),
+        recommended_next_steps=card_data.get("recommended_next_steps", []),
     )
 
     return ResearchResponse(
@@ -153,13 +158,16 @@ async def meeting_prep(req: MeetingPrepRequest):
 
     brief = MeetingPrepBrief(
         executive_summary=data.get("executive_summary", ""),
+        company_background=data.get("company_background", ""),
         meeting_agenda=_safe_build_list(AgendaItem, data.get("meeting_agenda", [])),
         talking_points=data.get("talking_points", []),
         questions_to_ask=data.get("questions_to_ask", []),
+        rapport_builders=data.get("rapport_builders", []),
         objection_responses=_safe_build_list(
             ObjectionResponse, data.get("objection_responses", [])
         ),
         competitive_landscape=data.get("competitive_landscape", ""),
+        success_metrics=data.get("success_metrics", []),
     )
 
     return MeetingPrepResponse(
@@ -195,11 +203,15 @@ async def competitive(req: CompetitiveRequest):
 
     comp = CompetitiveComparison(
         prospect_current_stack=data.get("prospect_current_stack", []),
+        stack_analysis=data.get("stack_analysis", ""),
         comparison_table=_safe_build_list(
             ComparisonRow, data.get("comparison_table", [])
         ),
         key_differentiators=data.get("key_differentiators", []),
+        competitive_weaknesses=data.get("competitive_weaknesses", []),
         landmine_questions=data.get("landmine_questions", []),
+        win_themes=data.get("win_themes", []),
+        switching_cost_mitigators=data.get("switching_cost_mitigators", []),
     )
 
     return CompetitiveResponse(

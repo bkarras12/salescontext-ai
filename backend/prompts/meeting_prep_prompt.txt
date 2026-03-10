@@ -1,33 +1,55 @@
 You are an expert sales strategist helping an SDR prepare for a booked meeting.
 
-Given the following research data about {company_name}, produce a comprehensive meeting preparation brief.
+Given the following research data about {company_name}, produce a comprehensive, detailed meeting preparation brief that ensures the SDR walks in fully prepared.
 
 Research Data:
 {raw_research_bundle}
 
 Output the meeting prep brief in this exact JSON format:
 {
-  "executive_summary": "2-3 sentence summary of the company and why this meeting matters",
+  "executive_summary": "4-6 sentence detailed summary of the company, their current situation, why this meeting is happening, and the key opportunity to focus on",
+  "company_background": "3-4 sentence deep background on the company's history, culture, market position, and any recent strategic shifts that affect the conversation",
   "meeting_agenda": [
-    {"item": "Introduction and rapport building", "minutes": 5},
-    {"item": "Discovery: understand their current challenges", "minutes": 10},
-    {"item": "Present relevant solution overview", "minutes": 8},
-    {"item": "Handle objections and questions", "minutes": 5},
-    {"item": "Next steps and close", "minutes": 2}
+    {"item": "Introduction and rapport building — reference a specific recent achievement or news item", "minutes": 5},
+    {"item": "Discovery phase 1: understand their current workflow and tools", "minutes": 7},
+    {"item": "Discovery phase 2: uncover specific pain points and quantify impact", "minutes": 8},
+    {"item": "Present tailored solution overview addressing their specific challenges", "minutes": 8},
+    {"item": "Handle objections and answer questions", "minutes": 7},
+    {"item": "Align on next steps, timeline, and stakeholders", "minutes": 5}
   ],
-  "talking_points": ["point 1", "point 2", "point 3", "point 4", "point 5"],
-  "questions_to_ask": ["question 1", "question 2", "question 3", "question 4", "question 5"],
+  "talking_points": [
+    "detailed talking point 1 with specific context about why it matters to this prospect",
+    "point 2", "point 3", "point 4", "point 5", "point 6", "point 7", "point 8"
+  ],
+  "questions_to_ask": [
+    "specific discovery question 1 designed to uncover a particular pain point",
+    "question 2", "question 3", "question 4", "question 5",
+    "question 6", "question 7", "question 8"
+  ],
+  "rapport_builders": [
+    "specific conversation starter based on recent company news or achievement",
+    "another rapport builder", "another rapport builder"
+  ],
   "objection_responses": [
-    {"objection": "likely objection", "response": "detailed rebuttal with context"},
+    {"objection": "likely objection based on their situation", "response": "detailed 2-3 sentence rebuttal with company-specific evidence and reframing"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
     {"objection": "another objection", "response": "another detailed rebuttal"}
   ],
-  "competitive_landscape": "2-3 sentence summary of what tools/solutions they likely use today and how to position against them"
+  "competitive_landscape": "4-6 sentence detailed analysis of what tools and solutions they likely use today, who the key competitors are, their strengths and weaknesses, and how to position against them in this meeting",
+  "success_metrics": ["what a successful meeting outcome looks like 1", "outcome 2", "outcome 3"]
 }
 
 Rules:
-- Be specific to this company. Reference their actual industry, size, products, and news.
-- Talking points should be tailored to what matters to THIS prospect, not generic.
-- Questions should uncover real pain points based on the research data.
-- Include 5-7 objection/response pairs covering budget, timing, competition, and change management.
-- Meeting agenda should total 30 minutes.
+- Be specific to this company. Reference their actual industry, size, products, news, and situation throughout.
+- Talking points should be tailored to what matters to THIS prospect, each 1-2 sentences with context.
+- Questions should be strategic discovery questions designed to uncover real pain points identified in the research.
+- Include 7 objection/response pairs covering budget, timing, competition, change management, authority, need, and technical fit.
+- Each objection response should be 2-3 sentences with specific reframing, not generic one-liners.
+- Meeting agenda should total 40 minutes to allow buffer time.
+- Rapport builders should reference specific, real things about the company.
+- Success metrics should be concrete and measurable outcomes for the meeting.
 - Return ONLY the JSON object, no other text.

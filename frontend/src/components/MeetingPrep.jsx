@@ -19,8 +19,27 @@ export default function MeetingPrep({ data }) {
         <p className="text-slate-300">{prep.executive_summary}</p>
       </Section>
 
+      {prep.company_background && (
+        <Section title="Company Background">
+          <p className="text-slate-300">{prep.company_background}</p>
+        </Section>
+      )}
+
+      {prep.rapport_builders && prep.rapport_builders.length > 0 && (
+        <Section title="Rapport Builders">
+          <div className="space-y-1.5">
+            {prep.rapport_builders.map((r, i) => (
+              <div key={i} className="flex items-start gap-2 text-amber-400">
+                <span className="mt-0.5 shrink-0">&#x1F4AC;</span>
+                <span className="text-slate-300">{r}</span>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
       {prep.meeting_agenda.length > 0 && (
-        <Section title="Suggested Agenda (30 min)">
+        <Section title="Suggested Agenda (40 min)">
           <div className="space-y-2">
             {prep.meeting_agenda.map((a, i) => (
               <div key={i} className="flex justify-between text-slate-300">
@@ -68,6 +87,19 @@ export default function MeetingPrep({ data }) {
       {prep.competitive_landscape && (
         <Section title="Competitive Landscape">
           <p className="text-slate-300">{prep.competitive_landscape}</p>
+        </Section>
+      )}
+
+      {prep.success_metrics && prep.success_metrics.length > 0 && (
+        <Section title="Success Metrics">
+          <div className="space-y-1.5">
+            {prep.success_metrics.map((m, i) => (
+              <div key={i} className="flex items-start gap-2 text-emerald-400">
+                <span className="mt-0.5 shrink-0">&#x2714;</span>
+                <span>{m}</span>
+              </div>
+            ))}
+          </div>
         </Section>
       )}
     </div>

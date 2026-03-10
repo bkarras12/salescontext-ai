@@ -30,15 +30,40 @@ export default function BattleCard({ data }) {
         <p className="text-slate-300">{card.company_overview}</p>
       </Section>
 
+      {card.value_proposition && (
+        <Section title="Tailored Value Proposition">
+          <p className="text-slate-300 bg-blue-500/5 border border-blue-500/10 rounded-lg p-4">{card.value_proposition}</p>
+        </Section>
+      )}
+
       {card.recent_news.length > 0 && (
         <Section title="Recent News">
           <List items={card.recent_news} />
         </Section>
       )}
 
+      {card.industry_trends && card.industry_trends.length > 0 && (
+        <Section title="Industry Trends">
+          <List items={card.industry_trends} />
+        </Section>
+      )}
+
       {card.likely_pain_points.length > 0 && (
         <Section title="Likely Pain Points">
           <List items={card.likely_pain_points} />
+        </Section>
+      )}
+
+      {card.buying_signals && card.buying_signals.length > 0 && (
+        <Section title="Buying Signals">
+          <div className="space-y-1.5">
+            {card.buying_signals.map((signal, i) => (
+              <div key={i} className="flex items-start gap-2 text-emerald-400">
+                <span className="mt-0.5 shrink-0">&#x2714;</span>
+                <span>{signal}</span>
+              </div>
+            ))}
+          </div>
         </Section>
       )}
 
@@ -66,7 +91,7 @@ export default function BattleCard({ data }) {
         </Section>
       )}
 
-      {(card.opening_lines.cold_email.length > 0 || card.opening_lines.cold_call.length > 0) && (
+      {(card.opening_lines.cold_email.length > 0 || card.opening_lines.cold_call.length > 0 || (card.opening_lines.linkedin && card.opening_lines.linkedin.length > 0)) && (
         <Section title="Opening Lines">
           {card.opening_lines.cold_email.length > 0 && (
             <div className="mb-3">
@@ -75,9 +100,15 @@ export default function BattleCard({ data }) {
             </div>
           )}
           {card.opening_lines.cold_call.length > 0 && (
-            <div>
+            <div className="mb-3">
               <h4 className="text-sm font-medium text-slate-400 mb-1">Cold Call</h4>
               <List items={card.opening_lines.cold_call} />
+            </div>
+          )}
+          {card.opening_lines.linkedin && card.opening_lines.linkedin.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-slate-400 mb-1">LinkedIn</h4>
+              <List items={card.opening_lines.linkedin} />
             </div>
           )}
         </Section>
@@ -93,6 +124,16 @@ export default function BattleCard({ data }) {
               </div>
             ))}
           </div>
+        </Section>
+      )}
+
+      {card.recommended_next_steps && card.recommended_next_steps.length > 0 && (
+        <Section title="Recommended Next Steps">
+          <ol className="space-y-1.5 list-decimal list-inside">
+            {card.recommended_next_steps.map((step, i) => (
+              <li key={i} className="text-slate-300">{step}</li>
+            ))}
+          </ol>
         </Section>
       )}
     </div>

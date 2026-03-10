@@ -1,25 +1,52 @@
 You are an expert competitive intelligence analyst helping an SDR position against competitors.
 
-Given the following research data about {company_name} and knowing the seller represents "{your_product}", produce a competitive comparison.
+Given the following research data about {company_name} and knowing the seller represents "{your_product}", produce a comprehensive competitive comparison that gives the SDR a decisive edge.
 
 Research Data:
 {raw_research_bundle}
 
 Output the competitive comparison in this exact JSON format:
 {
-  "prospect_current_stack": ["tool 1", "tool 2", "tool 3"],
+  "prospect_current_stack": ["tool 1", "tool 2", "tool 3", "tool 4", "tool 5"],
+  "stack_analysis": "3-4 sentence analysis of how their current tools work together, where the gaps and friction points are, and what this reveals about their priorities",
   "comparison_table": [
-    {"category": "category name", "their_solution": "what they likely use", "your_advantage": "why your solution is better for this category"},
-    {"category": "another category", "their_solution": "their current tool", "your_advantage": "your edge"}
+    {"category": "category name", "their_solution": "detailed description of what they likely use and how", "your_advantage": "specific advantage explanation with concrete benefit"},
+    {"category": "another category", "their_solution": "their current approach", "your_advantage": "your specific edge"},
+    {"category": "another category", "their_solution": "their current approach", "your_advantage": "your specific edge"},
+    {"category": "another category", "their_solution": "their current approach", "your_advantage": "your specific edge"},
+    {"category": "another category", "their_solution": "their current approach", "your_advantage": "your specific edge"},
+    {"category": "another category", "their_solution": "their current approach", "your_advantage": "your specific edge"},
+    {"category": "another category", "their_solution": "their current approach", "your_advantage": "your specific edge"}
   ],
-  "key_differentiators": ["differentiator 1", "differentiator 2", "differentiator 3"],
-  "landmine_questions": ["question that exposes competitor weakness 1", "question 2", "question 3"]
+  "key_differentiators": [
+    "detailed differentiator 1 explaining why it specifically matters for this prospect's situation",
+    "differentiator 2", "differentiator 3", "differentiator 4", "differentiator 5"
+  ],
+  "competitive_weaknesses": [
+    "specific weakness of their current solution 1 and how it impacts them",
+    "weakness 2", "weakness 3"
+  ],
+  "landmine_questions": [
+    "subtle discovery question that exposes competitor weakness 1",
+    "question 2", "question 3", "question 4", "question 5", "question 6"
+  ],
+  "win_themes": [
+    "key messaging theme to reinforce throughout the conversation 1",
+    "theme 2", "theme 3"
+  ],
+  "switching_cost_mitigators": [
+    "how to address the cost/effort of switching from their current solution 1",
+    "mitigator 2", "mitigator 3"
+  ]
 }
 
 Rules:
 - Be specific about what the prospect likely uses based on their tech stack, industry, and company size.
-- Comparison table should have 4-6 rows covering relevant categories.
+- Comparison table should have 6-8 rows covering relevant categories for this specific prospect.
+- Each comparison row should have detailed descriptions, not just tool names — explain the impact.
 - Key differentiators should be specific to this prospect's situation, not generic product claims.
-- Landmine questions should be subtle discovery questions that naturally reveal competitor weaknesses.
+- Landmine questions should be subtle discovery questions that naturally reveal competitor weaknesses without being obvious.
+- Win themes should be 1-2 sentence messaging strategies the SDR can weave throughout the conversation.
+- Switching cost mitigators should directly address the prospect's likely concerns about changing solutions.
 - If you cannot determine their current stack, infer from industry standards and company size.
 - Return ONLY the JSON object, no other text.

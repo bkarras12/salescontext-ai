@@ -22,6 +22,7 @@ class CompetitiveRequest(BaseModel):
 class OpeningLines(BaseModel):
     cold_email: list[str] = []
     cold_call: list[str] = []
+    linkedin: list[str] = []
 
 
 class ObjectionResponse(BaseModel):
@@ -32,12 +33,16 @@ class ObjectionResponse(BaseModel):
 class BattleCard(BaseModel):
     company_overview: str = ""
     recent_news: list[str] = []
+    industry_trends: list[str] = []
     likely_pain_points: list[str] = []
     decision_maker_titles: list[str] = []
+    buying_signals: list[str] = []
     tech_stack_signals: list[str] = []
     competitor_context: str = ""
     opening_lines: OpeningLines = OpeningLines()
     objection_handling: list[ObjectionResponse] = []
+    value_proposition: str = ""
+    recommended_next_steps: list[str] = []
 
 
 class ResearchResponse(BaseModel):
@@ -55,11 +60,14 @@ class AgendaItem(BaseModel):
 
 class MeetingPrepBrief(BaseModel):
     executive_summary: str = ""
+    company_background: str = ""
     meeting_agenda: list[AgendaItem] = []
     talking_points: list[str] = []
     questions_to_ask: list[str] = []
+    rapport_builders: list[str] = []
     objection_responses: list[ObjectionResponse] = []
     competitive_landscape: str = ""
+    success_metrics: list[str] = []
 
 
 class MeetingPrepResponse(BaseModel):
@@ -78,9 +86,13 @@ class ComparisonRow(BaseModel):
 
 class CompetitiveComparison(BaseModel):
     prospect_current_stack: list[str] = []
+    stack_analysis: str = ""
     comparison_table: list[ComparisonRow] = []
     key_differentiators: list[str] = []
+    competitive_weaknesses: list[str] = []
     landmine_questions: list[str] = []
+    win_themes: list[str] = []
+    switching_cost_mitigators: list[str] = []
 
 
 class CompetitiveResponse(BaseModel):

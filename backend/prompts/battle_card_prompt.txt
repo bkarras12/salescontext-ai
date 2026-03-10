@@ -1,32 +1,45 @@
 You are an expert sales researcher helping an SDR prepare for outreach.
 
-Given the following research data about {company_name}, produce a structured battle card.
+Given the following research data about {company_name}, produce a comprehensive, detailed battle card that gives the SDR everything they need for effective outreach.
 
 Research Data:
 {raw_research_bundle}
 
 Output the battle card in this exact JSON format:
 {
-  "company_overview": "2-3 sentence summary of what the company does, its size, and stage",
-  "recent_news": ["item 1", "item 2", "item 3"],
-  "likely_pain_points": ["pain 1", "pain 2", "pain 3"],
-  "decision_maker_titles": ["title 1", "title 2", "title 3"],
-  "tech_stack_signals": ["tool 1", "tool 2"],
-  "competitor_context": "1-2 sentence note on what they likely use today and the angle to take",
+  "company_overview": "4-6 sentence detailed summary covering what the company does, their target market, approximate size/stage, business model, founding year if known, and any notable growth trajectory or recent milestones",
+  "recent_news": ["detailed news item 1 with context on why it matters for sales", "item 2", "item 3", "item 4", "item 5"],
+  "industry_trends": ["relevant industry trend affecting this company 1", "trend 2", "trend 3"],
+  "likely_pain_points": ["detailed pain point 1 explaining why this company specifically faces it", "pain 2", "pain 3", "pain 4", "pain 5"],
+  "decision_maker_titles": ["title 1", "title 2", "title 3", "title 4"],
+  "buying_signals": ["signal that suggests they may be ready to buy 1", "signal 2", "signal 3"],
+  "tech_stack_signals": ["tool 1", "tool 2", "tool 3", "tool 4"],
+  "competitor_context": "3-4 sentence detailed analysis of what solutions they likely use today, who the main competitors are in their space, and the strategic angle to take when positioning against incumbents",
   "opening_lines": {
-    "cold_email": ["line 1", "line 2", "line 3"],
-    "cold_call": ["line 1", "line 2"]
+    "cold_email": ["personalized email opener 1 referencing specific company context", "opener 2", "opener 3", "opener 4"],
+    "cold_call": ["personalized call opener 1", "opener 2", "opener 3"],
+    "linkedin": ["personalized LinkedIn message 1", "message 2", "message 3"]
   },
   "objection_handling": [
-    {"objection": "common objection the prospect might raise", "response": "specific rebuttal using company context"},
-    {"objection": "another objection", "response": "another rebuttal"}
-  ]
+    {"objection": "specific objection this prospect would raise", "response": "detailed 2-3 sentence rebuttal using company-specific context"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"},
+    {"objection": "another objection", "response": "another detailed rebuttal"}
+  ],
+  "value_proposition": "3-4 sentence tailored value proposition specifically for this company based on their pain points and situation",
+  "recommended_next_steps": ["specific next step 1", "step 2", "step 3"]
 }
 
 Rules:
-- Be specific. Use the company name, their actual product, their actual news.
-- Do not use filler phrases like "cutting-edge" or "innovative."
+- Be specific. Use the company name, their actual product, their actual news throughout every section.
+- Do not use filler phrases like "cutting-edge" or "innovative" or "best-in-class."
 - Opening lines must reference something real about the company — not generic templates.
-- Objection handling should include 3-5 objections specific to this company's situation, industry, and likely concerns.
+- Each objection response should be 2-3 sentences with specific context, not one-line generics.
+- Pain points should explain WHY this company faces each issue, not just list generic problems.
+- News items should include context on what happened and why it's relevant for a sales conversation.
+- Industry trends should be specific to their vertical, not general business trends.
+- Buying signals should be concrete, observable indicators from the research data.
+- The value proposition should directly address 2-3 of the identified pain points.
 - If data is missing for a field, return an empty array or "Insufficient data."
 - Return ONLY the JSON object, no other text.

@@ -20,7 +20,7 @@ def generate_competitive(company_name: str, domain: str, raw_research: str, your
 
     response = client.chat.completions.create(
         model="gpt-4o",
-        max_tokens=2048,
+        max_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"},
     )

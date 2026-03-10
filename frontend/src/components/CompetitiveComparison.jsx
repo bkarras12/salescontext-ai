@@ -27,6 +27,12 @@ export default function CompetitiveComparison({ data }) {
         </Section>
       )}
 
+      {comp.stack_analysis && (
+        <Section title="Stack Analysis">
+          <p className="text-slate-300">{comp.stack_analysis}</p>
+        </Section>
+      )}
+
       {comp.comparison_table.length > 0 && (
         <Section title="Comparison">
           <div className="overflow-x-auto">
@@ -62,6 +68,16 @@ export default function CompetitiveComparison({ data }) {
         </Section>
       )}
 
+      {comp.competitive_weaknesses && comp.competitive_weaknesses.length > 0 && (
+        <Section title="Competitive Weaknesses">
+          <ul className="space-y-1.5">
+            {comp.competitive_weaknesses.map((w, i) => (
+              <li key={i} className="text-red-400">&bull; {w}</li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
       {comp.landmine_questions.length > 0 && (
         <Section title="Landmine Questions">
           <ol className="space-y-1.5 list-decimal list-inside">
@@ -69,6 +85,28 @@ export default function CompetitiveComparison({ data }) {
               <li key={i} className="text-slate-300">{q}</li>
             ))}
           </ol>
+        </Section>
+      )}
+
+      {comp.win_themes && comp.win_themes.length > 0 && (
+        <Section title="Win Themes">
+          <div className="space-y-2">
+            {comp.win_themes.map((theme, i) => (
+              <div key={i} className="bg-blue-500/5 border border-blue-500/10 rounded-lg p-3 text-slate-300">
+                {theme}
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {comp.switching_cost_mitigators && comp.switching_cost_mitigators.length > 0 && (
+        <Section title="Switching Cost Mitigators">
+          <ul className="space-y-1.5">
+            {comp.switching_cost_mitigators.map((m, i) => (
+              <li key={i} className="text-slate-300">&bull; {m}</li>
+            ))}
+          </ul>
         </Section>
       )}
     </div>
