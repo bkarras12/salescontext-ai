@@ -3,29 +3,29 @@ export default function MeetingPrep({ data }) {
 
   const Section = ({ title, children }) => (
     <div className="mb-6">
-      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">{title}</h3>
+      <h3 className="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">{title}</h3>
       {children}
     </div>
   );
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-8 bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+    <div className="w-full max-w-3xl mx-auto mt-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
       <div className="flex justify-between items-start mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Meeting Prep &mdash; {company_name}</h2>
-        <span className="text-sm text-gray-400">{generation_time_seconds}s</span>
+        <h2 className="text-2xl font-bold text-white">Meeting Prep &mdash; {company_name}</h2>
+        <span className="text-xs text-slate-600 bg-white/5 px-2.5 py-1 rounded-full">{generation_time_seconds}s</span>
       </div>
 
       <Section title="Executive Summary">
-        <p className="text-gray-700">{prep.executive_summary}</p>
+        <p className="text-slate-300">{prep.executive_summary}</p>
       </Section>
 
       {prep.meeting_agenda.length > 0 && (
         <Section title="Suggested Agenda (30 min)">
           <div className="space-y-2">
             {prep.meeting_agenda.map((a, i) => (
-              <div key={i} className="flex justify-between text-gray-700">
+              <div key={i} className="flex justify-between text-slate-300">
                 <span>&bull; {a.item}</span>
-                <span className="text-gray-400 text-sm ml-4 shrink-0">{a.minutes} min</span>
+                <span className="text-slate-500 text-sm ml-4 shrink-0 bg-white/5 px-2 py-0.5 rounded">{a.minutes} min</span>
               </div>
             ))}
           </div>
@@ -34,9 +34,9 @@ export default function MeetingPrep({ data }) {
 
       {prep.talking_points.length > 0 && (
         <Section title="Talking Points">
-          <ul className="space-y-1">
+          <ul className="space-y-1.5">
             {prep.talking_points.map((p, i) => (
-              <li key={i} className="text-gray-700">&bull; {p}</li>
+              <li key={i} className="text-slate-300">&bull; {p}</li>
             ))}
           </ul>
         </Section>
@@ -44,9 +44,9 @@ export default function MeetingPrep({ data }) {
 
       {prep.questions_to_ask.length > 0 && (
         <Section title="Questions to Ask">
-          <ol className="space-y-1 list-decimal list-inside">
+          <ol className="space-y-1.5 list-decimal list-inside">
             {prep.questions_to_ask.map((q, i) => (
-              <li key={i} className="text-gray-700">{q}</li>
+              <li key={i} className="text-slate-300">{q}</li>
             ))}
           </ol>
         </Section>
@@ -56,9 +56,9 @@ export default function MeetingPrep({ data }) {
         <Section title="Objection Handling">
           <div className="space-y-3">
             {prep.objection_responses.map((o, i) => (
-              <div key={i} className="border-l-2 border-blue-300 pl-4">
-                <p className="text-gray-800 font-medium">&ldquo;{o.objection}&rdquo;</p>
-                <p className="text-gray-600 mt-1">{o.response}</p>
+              <div key={i} className="border-l-2 border-blue-500/40 pl-4">
+                <p className="text-slate-200 font-medium">&ldquo;{o.objection}&rdquo;</p>
+                <p className="text-slate-400 mt-1">{o.response}</p>
               </div>
             ))}
           </div>
@@ -67,7 +67,7 @@ export default function MeetingPrep({ data }) {
 
       {prep.competitive_landscape && (
         <Section title="Competitive Landscape">
-          <p className="text-gray-700">{prep.competitive_landscape}</p>
+          <p className="text-slate-300">{prep.competitive_landscape}</p>
         </Section>
       )}
     </div>

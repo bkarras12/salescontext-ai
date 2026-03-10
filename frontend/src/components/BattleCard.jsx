@@ -3,31 +3,31 @@ export default function BattleCard({ data }) {
 
   const Section = ({ title, children }) => (
     <div className="mb-6">
-      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">{title}</h3>
+      <h3 className="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">{title}</h3>
       {children}
     </div>
   );
 
   const List = ({ items }) => (
-    <ul className="space-y-1">
+    <ul className="space-y-1.5">
       {items.map((item, i) => (
-        <li key={i} className="text-gray-700">&bull; {item}</li>
+        <li key={i} className="text-slate-300">&bull; {item}</li>
       ))}
     </ul>
   );
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-8 bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+    <div className="w-full max-w-3xl mx-auto mt-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
       <div className="flex justify-between items-start mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">{company_name}</h2>
-          {domain && <p className="text-gray-500">{domain}</p>}
+          <h2 className="text-2xl font-bold text-white">{company_name}</h2>
+          {domain && <p className="text-slate-500">{domain}</p>}
         </div>
-        <span className="text-sm text-gray-400">{generation_time_seconds}s</span>
+        <span className="text-xs text-slate-600 bg-white/5 px-2.5 py-1 rounded-full">{generation_time_seconds}s</span>
       </div>
 
       <Section title="Company Overview">
-        <p className="text-gray-700">{card.company_overview}</p>
+        <p className="text-slate-300">{card.company_overview}</p>
       </Section>
 
       {card.recent_news.length > 0 && (
@@ -50,13 +50,19 @@ export default function BattleCard({ data }) {
 
       {card.tech_stack_signals.length > 0 && (
         <Section title="Tech Stack Signals">
-          <List items={card.tech_stack_signals} />
+          <div className="flex flex-wrap gap-2">
+            {card.tech_stack_signals.map((tool, i) => (
+              <span key={i} className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm text-blue-300">
+                {tool}
+              </span>
+            ))}
+          </div>
         </Section>
       )}
 
       {card.competitor_context && (
         <Section title="Competitor Context">
-          <p className="text-gray-700">{card.competitor_context}</p>
+          <p className="text-slate-300">{card.competitor_context}</p>
         </Section>
       )}
 
@@ -64,13 +70,13 @@ export default function BattleCard({ data }) {
         <Section title="Opening Lines">
           {card.opening_lines.cold_email.length > 0 && (
             <div className="mb-3">
-              <h4 className="text-sm font-medium text-gray-600 mb-1">Cold Email</h4>
+              <h4 className="text-sm font-medium text-slate-400 mb-1">Cold Email</h4>
               <List items={card.opening_lines.cold_email} />
             </div>
           )}
           {card.opening_lines.cold_call.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-gray-600 mb-1">Cold Call</h4>
+              <h4 className="text-sm font-medium text-slate-400 mb-1">Cold Call</h4>
               <List items={card.opening_lines.cold_call} />
             </div>
           )}
@@ -81,9 +87,9 @@ export default function BattleCard({ data }) {
         <Section title="Objection Handling">
           <div className="space-y-3">
             {card.objection_handling.map((o, i) => (
-              <div key={i} className="border-l-2 border-blue-300 pl-4">
-                <p className="text-gray-800 font-medium">&ldquo;{o.objection}&rdquo;</p>
-                <p className="text-gray-600 mt-1">{o.response}</p>
+              <div key={i} className="border-l-2 border-blue-500/40 pl-4">
+                <p className="text-slate-200 font-medium">&ldquo;{o.objection}&rdquo;</p>
+                <p className="text-slate-400 mt-1">{o.response}</p>
               </div>
             ))}
           </div>

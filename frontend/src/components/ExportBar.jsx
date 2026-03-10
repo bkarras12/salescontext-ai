@@ -19,13 +19,13 @@ export default function ExportBar({ contentRef }) {
     <div className="flex gap-3 w-full max-w-3xl mx-auto mt-4 print:hidden">
       <button
         onClick={handleCopy}
-        className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium text-gray-700"
+        className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors"
       >
         {copied ? "Copied!" : "Copy to Clipboard"}
       </button>
       <button
         onClick={handlePDF}
-        className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium text-gray-700"
+        className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors"
       >
         Download PDF
       </button>
